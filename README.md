@@ -29,5 +29,5 @@ Make sure you have the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/in
 ## Notes
 See notes below for additional info:
 
-- A public IP is added to Azure Storage Account and Azure Synapse firewall rules to enable the deployment. That rule could be removed once the deployment is finished.
+- A public IP is added to Azure Storage Account and Azure Synapse firewall rules to enable the deployment. That rule could be removed once the deployment is finished, only limiting jumphost access.
 - Change `enable_syn_sqlpool` and `enable_syn_sparkpool` values if you wanna deploy any of those pools.
