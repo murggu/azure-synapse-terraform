@@ -125,6 +125,16 @@ resource "azurerm_synapse_managed_private_endpoint" "syn_ws_pe_managed_sa_dfs" {
   depends_on = [azurerm_synapse_firewall_rule.allow_my_ip]
 } 
 
+resource "azurerm_synapse_managed_private_endpoint" "syn_ws_pe_managed_kv" {
+  name                 = "${var.prefix}-ws-kv-managed-pe-${random_string.postfix.result}"
+  synapse_workspace_id = azurerm_synapse_workspace.syn_ws.id
+  target_resource_id   = azurerm_key_vault.syn_kv.id
+  subresource_name     = "vault"
+
+  depends_on = [azurerm_synapse_firewall_rule.allow_my_ip]
+} 
+
+
 # Once the Synapse Managed Endpoint request has been created, approve it 
 
 resource "null_resource" "azurecli_syn_approve_pe_adf_01" {
@@ -143,6 +153,31 @@ resource "null_resource" "azurecli_syn_approve_pe_adf_01" {
 
       environment = {
         storageAccountName = "${azurerm_storage_account.syn_ws_sa.name}"
+        resourceGroup = "${azurerm_resource_group.syn_rg.name}"
+      }
+  }
+
+  depends_on = [
+    time_sleep.wait_50_seconds
+  ]
+}
+
+resource "null_resource" "azurecli_syn_approve_pe_kv_01" {
+
+  provisioner "local-exec" {
+
+       interpreter = ["/bin/bash", "-c"]
+       working_dir = "${path.module}"
+
+      # https://github.com/Azure/azure-cli/issues/13573
+      command = <<EOT
+          synId=$(az keyvault show -n $keyVaultName --query "properties.privateEndpointConnections[1].id" -o tsv | tr -d '\r\n')
+          echo "APPROVING |"$synId"|"
+          az keyvault private-endpoint-connection approve --id $synId --description "Approved by Terraform"
+      EOT
+
+      environment = {
+        keyVaultName = "${azurerm_key_vault.syn_kv.name}"
         resourceGroup = "${azurerm_resource_group.syn_rg.name}"
       }
   }
@@ -175,7 +210,8 @@ resource "null_resource" "azurecli_syn_add_exception_01" {
 resource "time_sleep" "wait_50_seconds" {
 
   depends_on = [
-    azurerm_synapse_managed_private_endpoint.syn_ws_pe_managed_sa_dfs
+    azurerm_synapse_managed_private_endpoint.syn_ws_pe_managed_sa_dfs,
+    azurerm_synapse_managed_private_endpoint.syn_ws_pe_managed_kv
   ]
 
   create_duration = "50s"
