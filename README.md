@@ -1,6 +1,6 @@
 # Azure Synapse Terraform Example
 
-This repo shows an example for rolling out a complete Synapse enterprise environment via Terraform.
+This repo shows an example for rolling out a complete [Azure Synapse Analytics](https://azure.microsoft.com/services/synapse-analytics/) enterprise environment via Terraform.
 
 ![Deployed resources](media/arch_syn01.png "Deployed resources")
 
@@ -15,7 +15,7 @@ This includes rollout of the following resources:
 
 ## Instructions
 
-Make sure you have the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and [Terraform](https://www.terraform.io/downloads.html) installed. 
+Make sure you have the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) and [Terraform](https://www.terraform.io/downloads.html) installed. 
 
 1. Copy `terraform.tfvars.example` to `terraform.tfvars`
 2. Update `terraform.tfvars` with your desired values
