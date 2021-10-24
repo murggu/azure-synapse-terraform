@@ -6,8 +6,8 @@ This repo shows an example for rolling out a complete [Azure Synapse Analytics](
 
 This includes rollout of the following resources:
 
-- Azure Synapse Workspace with Private Endpoints
-- Azure Synapse Private Link Hub with Private Endpoint 
+- Azure Synapse Analytics Workspace with Private Endpoints
+- Azure Synapse Analytics Private Link Hub with Private Endpoint 
 - Azure Storage Account with Private Endpoints for `blob` and `dfs`
 - Azure Key Vault with Private Endpoint 
 - Virtual Network
@@ -29,5 +29,5 @@ Make sure you have the [Azure CLI](https://docs.microsoft.com/cli/azure/install-
 ## Notes
 See notes below for additional info:
 
-- A public IP is added to Azure Storage Account and Azure Synapse firewall rules to enable the deployment. That rule could be removed once the deployment is finished, only limiting jumphost access.
+- A public IP is added to Azure Storage Account and Azure Synapse Analytics firewall rules to enable the deployment. That rule could be removed once the deployment is finished, only limiting jumphost access.
 - Change `enable_syn_sqlpool` and `enable_syn_sparkpool` values if you wanna deploy any of those pools.
