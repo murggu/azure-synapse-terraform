@@ -31,3 +31,4 @@ See notes below for additional info:
 
 - A public IP is added to Azure Storage Account and Azure Synapse Analytics firewall rules to enable the deployment. That rule could be removed once the deployment is finished, only limiting jumphost access.
 - Change `enable_syn_sqlpool` and `enable_syn_sparkpool` values if you wanna deploy any of those pools.
+- The deployment was tested on wsl (ubuntu).
