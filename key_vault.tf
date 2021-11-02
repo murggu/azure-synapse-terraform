@@ -10,8 +10,8 @@ resource "azurerm_key_vault" "syn_kv" {
   network_acls {
     default_action = "Deny"
     ip_rules       = []
-    virtual_network_subnet_ids = [azurerm_subnet.default_subnet.id]
-    bypass         = "AzureServices"
+    virtual_network_subnet_ids = []
+    bypass         = "None"
   }
 }
 
