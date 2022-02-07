@@ -29,7 +29,7 @@ resource "azurerm_role_assignment" "syn_ws_sa_role_si_c" {
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "syn_ws_adls" {
-  name               = "default"
+  name               = "landing"
   storage_account_id = azurerm_storage_account.syn_ws_sa.id
 
   depends_on = [

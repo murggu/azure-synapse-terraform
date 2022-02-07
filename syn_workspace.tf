@@ -122,7 +122,12 @@ resource "azurerm_synapse_managed_private_endpoint" "syn_ws_pe_managed_sa_dfs" {
   target_resource_id   = azurerm_storage_account.syn_ws_sa.id
   subresource_name     = "dfs"
 
-  depends_on = [azurerm_synapse_firewall_rule.allow_my_ip]
+  depends_on = [
+    azurerm_synapse_firewall_rule.allow_my_ip, 
+    azurerm_private_endpoint.syn_ws_pe_sqlondemand, 
+    azurerm_private_endpoint.syn_ws_pe_sql,
+    azurerm_private_endpoint.syn_ws_pe_dev
+  ]
 } 
 
 resource "azurerm_synapse_managed_private_endpoint" "syn_ws_pe_managed_kv" {
