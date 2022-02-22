@@ -1,20 +1,18 @@
-variable "resource_group" {
-  default = "syn-terraform-demo01"
-}
-
 variable "location" {
-  default = "North Europe"
+  type        = string
+  description = "Location of the resource group and modules"
 }
 
 variable "prefix" {
-  type = string
-  default = "syn"
+  type        = string
+  description = "Prefix for module names"
+  default     = "syn"
 }
 
 resource "random_string" "postfix" {
-  length = 6
+  length  = 6
   special = false
-  upper = false
+  upper   = false
 }
 
 variable "aad_login" {
@@ -32,19 +30,27 @@ variable "aad_login" {
 }
 
 variable "jumphost_username" {
-  default = "azureuser"
+  type        = string
+  description = "VM username"
+  default     = "azureuser"
 }
 
 variable "jumphost_password" {
-  default = "ThisIsNotVerySecure!"
+  type        = string
+  description = "VM password"
+  default     = "ThisIsNotVerySecure!"
 }
 
 variable "synadmin_username" {
-  default = "sqladminuser"
+  type        = string
+  description = "The Login Name of the SQL administrator"
+  default     = "sqladminuser"
 }
 
 variable "synadmin_password" {
-  default = "ThisIsNotVerySecure!"
+  type        = string
+  description = "The Password associated with the sql_administrator_login for the SQL administrator"
+  default     = "ThisIsNotVerySecure!"
 }
 
 variable "enable_syn_sqlpool" {

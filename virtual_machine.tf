@@ -1,5 +1,5 @@
-module "key_vault" {
-  source = "github.com/murggu/azure-terraform-modules/key-vault"
+module "jumphost" {
+  source = "github.com/murggu/azure-terraform-modules/virtual-machine"
 
   rg_name  = module.resource_group.name
   location = module.resource_group.location
@@ -7,6 +7,8 @@ module "key_vault" {
   prefix  = var.prefix
   postfix = random_string.postfix.result
 
-  vnet_id   = module.virtual_network.id
   subnet_id = azurerm_subnet.default_subnet.id
+
+  jumphost_username = var.jumphost_username
+  jumphost_password = var.jumphost_password
 }

@@ -1,4 +1,8 @@
-resource "azurerm_resource_group" "syn_rg" {
-  name     = var.resource_group
+module "resource_group" {
+  source = "github.com/murggu/azure-terraform-modules/resource-group"
+
   location = var.location
+
+  prefix  = var.prefix
+  postfix = random_string.postfix.result
 }

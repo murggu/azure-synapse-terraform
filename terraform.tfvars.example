@@ -1,15 +1,12 @@
-# Resource group name
-resource_group="syn-terraform-demo01"
-
 # Resource name prefix
-prefix="syn"
+prefix = "syn"
 
 # Deployment location
-location="West Europe"
+location = "West Europe"
 
 # Jumpbox login credentials
-jumphost_username="azureuser"
-jumphost_password="ThisIsNotVerySecure!"
+jumphost_username = "azureuser"
+jumphost_password = "ThisIsNotVerySecure!"
 
 # Synapse SQL admin credentials
 synadmin_username = "sqladminuser"
