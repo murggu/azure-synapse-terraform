@@ -1,6 +1,6 @@
 # Azure Synapse Terraform Example
 
-This repo shows an example for rolling out a complete [Azure Synapse Analytics](https://azure.microsoft.com/services/synapse-analytics/) enterprise environment via Terraform. This version is using [Azure Terraform modules](https://github.com/murggu/azure-terraform-modules/); check the old version at [azure-synapse-terraform-nomodules](https://github.com/murggu/azure-terraform-modules/).
+This repo shows an example for rolling out a complete [Azure Synapse Analytics](https://azure.microsoft.com/services/synapse-analytics/) enterprise environment via Terraform. This version is not using [Azure Terraform modules](https://github.com/murggu/azure-terraform-modules/); check the modules version at [azure-synapse-terraform](https://github.com/murggu/azure-synapse-terraform/).
 
 ![Deployed resources](media/arch_syn01.png "Deployed resources")
 
