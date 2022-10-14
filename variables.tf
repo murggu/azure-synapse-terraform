@@ -1,20 +1,16 @@
-variable "resource_group" {
-  default = "syn-terraform-demo01"
-}
-
 variable "location" {
   default = "North Europe"
 }
 
 variable "prefix" {
-  type = string
+  type    = string
   default = "syn"
 }
 
 resource "random_string" "postfix" {
-  length = 6
+  length  = 6
   special = false
-  upper = false
+  upper   = false
 }
 
 variable "aad_login" {

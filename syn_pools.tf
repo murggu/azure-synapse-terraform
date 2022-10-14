@@ -1,8 +1,9 @@
 # Synapse pools with feature flags, change variable values to enable those (false by default)
 
 # Sql Pool 
-resource "azurerm_synapse_sql_pool" "syn_ws_pool_sql" {
-  name                 = "sql${random_string.postfix.result}"
+
+resource "azurerm_synapse_sql_pool" "syn_pool_sql" {
+  name                 = "syndp${random_string.postfix.result}"
   synapse_workspace_id = azurerm_synapse_workspace.syn_ws.id
   sku_name             = "DW100c"
   create_mode          = "Default"
@@ -10,8 +11,9 @@ resource "azurerm_synapse_sql_pool" "syn_ws_pool_sql" {
 }
 
 # Spark Pool 
-resource "azurerm_synapse_spark_pool" "syn_ws_pool_spark" {
-  name                 = "spark${random_string.postfix.result}"
+
+resource "azurerm_synapse_spark_pool" "syn_pool_spark" {
+  name                 = "synsp${random_string.postfix.result}"
   synapse_workspace_id = azurerm_synapse_workspace.syn_ws.id
   node_size_family     = "MemoryOptimized"
   node_size            = "Small"

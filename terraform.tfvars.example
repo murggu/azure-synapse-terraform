@@ -1,11 +1,8 @@
-# Resource group name
-resource_group="syn-terraform-demo01"
-
 # Resource name prefix
-prefix="syn"
+prefix="lab"
 
 # Deployment location
-location="West Europe"
+location="North Europe"
 
 # Jumpbox login credentials
 jumphost_username="azureuser"

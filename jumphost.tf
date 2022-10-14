@@ -1,46 +1,10 @@
 # Jump host for testing VNET and Private Link
 
-resource "azurerm_network_interface" "jumphost_nic" {
-  name                = "jumphost-nic"
-  location            = azurerm_resource_group.syn_rg.location
-  resource_group_name = azurerm_resource_group.syn_rg.name
-
-  ip_configuration {
-    name                          = "configuration"
-    private_ip_address_allocation = "Dynamic"
-    subnet_id                     = azurerm_subnet.default_subnet.id
-    # public_ip_address_id          = azurerm_public_ip.jumphost_public_ip.id
-  }
-}
-
-resource "azurerm_network_security_group" "jumphost_nsg" {
-  name                = "jumphost-nsg"
-  location            = azurerm_resource_group.syn_rg.location
-  resource_group_name = azurerm_resource_group.syn_rg.name
-
-  security_rule {
-    name                       = "RDP"
-    priority                   = 1010
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = 3389
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-}
-
-resource "azurerm_network_interface_security_group_association" "jumphost_nsg_association" {
-  network_interface_id      = azurerm_network_interface.jumphost_nic.id
-  network_security_group_id = azurerm_network_security_group.jumphost_nsg.id
-}
-
-resource "azurerm_virtual_machine" "jumphost" {
-  name                  = "jumphost"
+resource "azurerm_virtual_machine" "syn_jumphost" {
+  name                  = "wvm-${local.basename}"
   location              = azurerm_resource_group.syn_rg.location
   resource_group_name   = azurerm_resource_group.syn_rg.name
-  network_interface_ids = [azurerm_network_interface.jumphost_nic.id]
+  network_interface_ids = [azurerm_network_interface.syn_jumphost_nic.id]
   vm_size               = "Standard_DS3_v2"
 
   delete_os_disk_on_termination    = true
@@ -69,15 +33,51 @@ resource "azurerm_virtual_machine" "jumphost" {
   }
 
   storage_os_disk {
-    name              = "jumphost-osdisk"
+    name              = "disk-${local.basename}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "StandardSSD_LRS"
   }
 }
 
-resource "azurerm_dev_test_global_vm_shutdown_schedule" "jumphost_schedule" {
-  virtual_machine_id = azurerm_virtual_machine.jumphost.id
+resource "azurerm_network_interface" "syn_jumphost_nic" {
+  name                = "nic-${local.basename}"
+  location            = azurerm_resource_group.syn_rg.location
+  resource_group_name = azurerm_resource_group.syn_rg.name
+
+  ip_configuration {
+    name                          = "configuration"
+    private_ip_address_allocation = "Dynamic"
+    subnet_id                     = azurerm_subnet.syn_snet_default.id
+    # public_ip_address_id          = azurerm_public_ip.jumphost_public_ip.id
+  }
+}
+
+resource "azurerm_network_security_group" "syn_jumphost_nsg" {
+  name                = "nsg-${local.basename}"
+  location            = azurerm_resource_group.syn_rg.location
+  resource_group_name = azurerm_resource_group.syn_rg.name
+
+  security_rule {
+    name                       = "RDP"
+    priority                   = 1010
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = 3389
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "syn_jumphost_nsg_association" {
+  network_interface_id      = azurerm_network_interface.syn_jumphost_nic.id
+  network_security_group_id = azurerm_network_security_group.syn_jumphost_nsg.id
+}
+
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "syn_jumphost_schedule" {
+  virtual_machine_id = azurerm_virtual_machine.syn_jumphost.id
   location           = azurerm_resource_group.syn_rg.location
   enabled            = true
 
