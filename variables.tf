@@ -1,12 +1,10 @@
 variable "location" {
-  type        = string
-  description = "Location of the resource group and modules"
+  default = "North Europe"
 }
 
 variable "prefix" {
-  type        = string
-  description = "Prefix for module names"
-  default     = "syn"
+  type    = string
+  default = "syn"
 }
 
 resource "random_string" "postfix" {
@@ -30,27 +28,19 @@ variable "aad_login" {
 }
 
 variable "jumphost_username" {
-  type        = string
-  description = "VM username"
-  default     = "azureuser"
+  default = "azureuser"
 }
 
 variable "jumphost_password" {
-  type        = string
-  description = "VM password"
-  default     = "ThisIsNotVerySecure!"
+  default = "ThisIsNotVerySecure!"
 }
 
 variable "synadmin_username" {
-  type        = string
-  description = "The Login Name of the SQL administrator"
-  default     = "sqladminuser"
+  default = "sqladminuser"
 }
 
 variable "synadmin_password" {
-  type        = string
-  description = "The Password associated with the sql_administrator_login for the SQL administrator"
-  default     = "ThisIsNotVerySecure!"
+  default = "ThisIsNotVerySecure!"
 }
 
 variable "enable_syn_sqlpool" {

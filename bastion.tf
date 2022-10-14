@@ -1,11 +1,19 @@
-module "bastion" {
-  source = "github.com/murggu/azure-terraform-modules/bastion"
+resource "azurerm_bastion_host" "syn_bas" {
+  name                = "bas-${local.basename}"
+  location            = azurerm_resource_group.syn_rg.location
+  resource_group_name = azurerm_resource_group.syn_rg.name
 
-  rg_name  = module.resource_group.name
-  location = module.resource_group.location
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.syn_snet_bastion.id
+    public_ip_address_id = azurerm_public_ip.syn_pip.id
+  }
+}
 
-  prefix  = var.prefix
-  postfix = random_string.postfix.result
-
-  subnet_id = azurerm_subnet.bastion_subnet.id
+resource "azurerm_public_ip" "syn_pip" {
+  name                = "pip-${local.basename}"
+  location            = azurerm_resource_group.syn_rg.location
+  resource_group_name = azurerm_resource_group.syn_rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
 }

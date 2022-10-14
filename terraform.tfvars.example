@@ -1,12 +1,12 @@
 # Resource name prefix
-prefix = "syn"
+prefix="lab"
 
 # Deployment location
-location = "West Europe"
+location="North Europe"
 
 # Jumpbox login credentials
-jumphost_username = "azureuser"
-jumphost_password = "ThisIsNotVerySecure!"
+jumphost_username="azureuser"
+jumphost_password="ThisIsNotVerySecure!"
 
 # Synapse SQL admin credentials
 synadmin_username = "sqladminuser"
